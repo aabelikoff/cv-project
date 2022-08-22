@@ -1,0 +1,74 @@
+.cv {
+    margin: auto;
+    width:90%;
+    height: 800px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border: 1px solid;
+}
+
+.introduction{
+    box-sizing: border-box;
+    width: 35%;
+    border: 1px solid;
+}
+
+h1{
+    font-size: 2.2em;
+    margin:5px;
+    min-height: 80px;
+}
+
+h2 {
+    margin:5px;
+}
+
+h3 {
+    margin: 2px;
+    font-size: medium;
+}
+
+hr {
+    margin: 0.2em
+}
+
+.basic-info{
+    box-sizing: border-box;
+    width: 65%;
+    border: 1px solid;
+}
+
+.simple-info {
+    padding: 3px;
+}
+
+.photo {
+    height: 350px;
+    border: 1px dotted;
+}
+
+img {
+    height:90%;
+    width: 100%;
+}
+
+.list-info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.line-info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+p {
+    margin: 3px;
+}
+
+ul {
+    margin:10px;
+}
