@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/FormsContainer.css';
 import {
   PersonalInfoForm,
   EducationInfoForm,
@@ -141,104 +142,107 @@ class FormsContainer extends React.Component {
   }
 
   render() {
+    let displayForm = this.props.mode === 'input' ? 'block' : 'none';
     return (
       <div>
-        <section>
-          <h2>Personal information</h2>
-          <PersonalInfoForm onFormChange={this.updateInfo} />;
-        </section>
-        <section>
-          <h2>Education</h2>
-          {this.state.education.map((elem, index) => {
-            return (
-              <EducationInfoForm
-                onFormChange={this.updateInfoInArray}
-                index={index}
-                key={index}
-              />
-            );
-          })}
-          <SubSectionButton
-            value="Add"
-            section="education"
-            onButtonClick={this.addSubsection}
-          />
-          {this.state.education.length > 0 && (
+        <div className="cv-form" style={{ display: displayForm }}>
+          <section>
+            <h2>Personal information</h2>
+            <PersonalInfoForm onFormChange={this.updateInfo} />;
+          </section>
+          <section>
+            <h2>Education</h2>
+            {this.state.education.map((elem, index) => {
+              return (
+                <EducationInfoForm
+                  onFormChange={this.updateInfoInArray}
+                  index={index}
+                  key={index}
+                />
+              );
+            })}
             <SubSectionButton
-              value="Delete"
+              value="Add"
               section="education"
-              onButtonClick={this.removeSubsection}
+              onButtonClick={this.addSubsection}
             />
-          )}
-        </section>
-        <section>
-          <h2>Experience</h2>
-          {this.state.experience.map((elem, index) => {
-            return (
-              <ExperienceInfoForm
-                onFormChange={this.updateInfoInArray}
-                index={index}
-                key={index}
+            {this.state.education.length > 0 && (
+              <SubSectionButton
+                value="Delete"
+                section="education"
+                onButtonClick={this.removeSubsection}
               />
-            );
-          })}
-          <SubSectionButton
-            value="Add"
-            section="experience"
-            onButtonClick={this.addSubsection}
-          />
-          {this.state.experience.length > 0 && (
+            )}
+          </section>
+          <section>
+            <h2>Experience</h2>
+            {this.state.experience.map((elem, index) => {
+              return (
+                <ExperienceInfoForm
+                  onFormChange={this.updateInfoInArray}
+                  index={index}
+                  key={index}
+                />
+              );
+            })}
             <SubSectionButton
-              value="Delete"
+              value="Add"
               section="experience"
-              onButtonClick={this.removeSubsection}
+              onButtonClick={this.addSubsection}
             />
-          )}
-        </section>
-        <section>
-          <h2>Languages</h2>
-          {this.state.languages.map((elem, index) => {
-            return (
-              <LanguageInfoForm
-                onFormChange={this.updateInfoInArray}
-                index={index}
-                key={index}
+            {this.state.experience.length > 0 && (
+              <SubSectionButton
+                value="Delete"
+                section="experience"
+                onButtonClick={this.removeSubsection}
               />
-            );
-          })}
-          {/* <LanguageInfoForm onFormChange={this.updateInfoInArray} index={0} /> */}
-          <SubSectionButton
-            value="Add"
-            section="languages"
-            onButtonClick={this.addSubsection}
-          />
-          {this.state.languages.length > 0 && (
+            )}
+          </section>
+          <section>
+            <h2>Languages</h2>
+            {this.state.languages.map((elem, index) => {
+              return (
+                <LanguageInfoForm
+                  onFormChange={this.updateInfoInArray}
+                  index={index}
+                  key={index}
+                />
+              );
+            })}
+            {/* <LanguageInfoForm onFormChange={this.updateInfoInArray} index={0} /> */}
             <SubSectionButton
-              value="Delete"
+              value="Add"
               section="languages"
-              onButtonClick={this.removeSubsection}
+              onButtonClick={this.addSubsection}
             />
-          )}
-        </section>
-        <section>
-          <h2>Skills</h2>
-          <TextAreaInfoForm
-            onFormChange={this.updateInfoInTextarea}
-            section="skills"
-            name="skill"
-            placeholder="Skills"
-          />
-        </section>
-        <section>
-          <h2>Sertifications</h2>
-          <TextAreaInfoForm
-            onFormChange={this.updateInfoInTextarea}
-            section="certifications"
-            name="certificate"
-            placeholder="Certifications"
-          />
-        </section>
-        <CVReady info={this.state} />
+            {this.state.languages.length > 0 && (
+              <SubSectionButton
+                value="Delete"
+                section="languages"
+                onButtonClick={this.removeSubsection}
+              />
+            )}
+          </section>
+          <section>
+            <h2>Skills</h2>
+            <TextAreaInfoForm
+              onFormChange={this.updateInfoInTextarea}
+              section="skills"
+              name="skill"
+              placeholder="Skills"
+            />
+          </section>
+          <section>
+            <h2>Sertifications</h2>
+            <TextAreaInfoForm
+              onFormChange={this.updateInfoInTextarea}
+              section="certifications"
+              name="certificate"
+              placeholder="Certifications"
+            />
+          </section>
+        </div>
+        <CVReady info={this.state} mode={this.props.mode} />
       </div>
     );
   }

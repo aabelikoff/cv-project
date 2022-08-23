@@ -22,8 +22,9 @@ class CVReady extends React.Component {
       description,
     } = personalInfo;
 
+    let displayCV = this.props.mode === 'preview' ? 'block' : 'none';
     return (
-      <div className="cv">
+      <div className="cv" style={{ display: displayCV }}>
         <div className="introduction">
           <h1>
             {firstName} {secondName}

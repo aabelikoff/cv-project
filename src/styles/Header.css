@@ -1,0 +1,22 @@
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border: 1px dotted;
+    height: 100px;
+}
+.app-info {
+    display:flex;
+    align-items: center;
+    height: 70%;
+    border: 1px dotted;
+}
+
+.h-button {
+    height: 28%;
+    width: 99%;
+    text-align: center;
+    border: 1px dotted;
+}
+
