@@ -22,14 +22,14 @@ class CVReady extends React.Component {
       description,
     } = personalInfo;
 
-    let displayCV = this.props.mode === 'preview' ? 'block' : 'none';
+    let displayCV = this.props.mode === 'preview' ? 'flex' : 'none';
     return (
       <div className="cv" style={{ display: displayCV }}>
         <div className="introduction">
           <h1>
             {firstName} {secondName}
           </h1>
-          <Photo file={myPhoto} />
+          <Photo url={myPhoto} />
           <ContactInfo address={address} phone={phone} email={email} />
           <LanguagesInfo languages={languages} />
         </div>
@@ -63,13 +63,7 @@ class H3Title extends React.Component {
 
 class Photo extends React.Component {
   render() {
-    let url;
-    if (this.props.file === '') {
-      url = '';
-    } else {
-      url = window.URL.createObjectURL(this.props.file);
-    }
-    const img = <img alt="myPhoto" height="100px" src={url}></img>;
+    const img = <img alt="myPhoto" height="100px" src={this.props.url}></img>;
 
     return <div className="photo">{img}</div>;
   }

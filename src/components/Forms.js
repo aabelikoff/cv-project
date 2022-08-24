@@ -51,12 +51,22 @@ class PersonalInfoForm extends React.Component {
     const key = e.target.name;
     let value;
     if (key === 'myPhoto') {
-      value = e.target.files[0];
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onloadend = () => {
+          resolve(reader.result);
+        };
+        reader.onerror = () => {
+          reject('Error'); //доделать, добавив фоточку
+        };
+      }).then((data) => {
+        this.props.onFormChange(this.section, key, data);
+      });
     } else {
       value = e.target.value;
+      this.props.onFormChange(this.section, key, value);
     }
-
-    this.props.onFormChange(this.section, key, value);
   }
 
   render() {

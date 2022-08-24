@@ -28,7 +28,6 @@ class ModeButton extends React.Component {
   handleOnClick(e) {
     e.preventDefault();
     let name = this.props.name;
-    console.log(name);
     this.props.onButtonClick(name);
   }
 
@@ -41,10 +40,20 @@ class ModeButton extends React.Component {
   }
 }
 
-class SaveButton extends React.Component {
+class FunctionalButton extends React.Component {
   render() {
-    return <button>Save</button>;
+    return (
+      <button
+        className="f-button"
+        onClick={(e) => {
+          e.preventDefault();
+          this.props.onButtonClick();
+        }}
+      >
+        {this.props.value}
+      </button>
+    );
   }
 }
 
-export { SubSectionButton, ModeButton };
+export { SubSectionButton, ModeButton, FunctionalButton };

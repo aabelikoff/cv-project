@@ -7,7 +7,7 @@ import {
   LanguageInfoForm,
   TextAreaInfoForm,
 } from './Forms';
-import { SubSectionButton } from './Buttons';
+import { SubSectionButton, FunctionalButton } from './Buttons';
 import { CVReady } from './CVReady';
 
 class FormsContainer extends React.Component {
@@ -21,6 +21,8 @@ class FormsContainer extends React.Component {
     this.splitStringToArrayObj = this.splitStringToArrayObj.bind(this);
     this.addSubsection = this.addSubsection.bind(this);
     this.removeSubsection = this.removeSubsection.bind(this);
+    this.loadInfo = this.loadInfo.bind(this);
+    this.saveInfo = this.saveInfo.bind(this);
 
     this.state = {
       personalInfo: {
@@ -40,8 +42,22 @@ class FormsContainer extends React.Component {
     };
   }
 
+  loadInfo() {
+    let dataStr = localStorage.getItem(this.props.lang);
+    if (!dataStr) {
+      return;
+    }
+    let newState = JSON.parse(dataStr);
+    this.setState(newState);
+  }
+
+  saveInfo() {
+    let dataStr = JSON.stringify(this.state);
+    let key = this.props.lang;
+    localStorage.setItem(key, dataStr);
+  }
+
   updateInfo(section, key, value) {
-    // console.log(value);
     this.setState((state) => {
       const newSection = state[section];
       if (newSection[key] instanceof Array) {
@@ -49,9 +65,8 @@ class FormsContainer extends React.Component {
       } else {
         newSection[key] = value;
       }
-      // console.log(newSection[key]);
       return {
-        section: newSection,
+        [section]: newSection,
       };
     });
   }
@@ -243,6 +258,8 @@ class FormsContainer extends React.Component {
           </section>
         </div>
         <CVReady info={this.state} mode={this.props.mode} />
+        <FunctionalButton value="Load CV" onButtonClick={this.loadInfo} />
+        <FunctionalButton value="Save CV" onButtonClick={this.saveInfo} />
       </div>
     );
   }

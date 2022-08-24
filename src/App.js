@@ -10,6 +10,7 @@ import { CVReady } from './components/CVReady';
 import { Header } from './components/Header';
 import React from 'react';
 import './styles/App.css';
+import storage from './components/Storage';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class App extends React.Component {
 
     this.state = {
       appMode: 'input',
+      appLang: 'en',
     };
 
     this.changeAppMode = this.changeAppMode.bind(this);
@@ -29,8 +31,12 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Header mode={this.state.appMode} onChangeMode={this.changeAppMode} />
-        <FormsContainer mode={this.state.appMode} />
+        <Header
+          mode={this.state.appMode}
+          onChangeMode={this.changeAppMode}
+          lang={this.state.appLang}
+        />
+        <FormsContainer mode={this.state.appMode} lang={this.state.appLang} />
       </div>
     );
   }
