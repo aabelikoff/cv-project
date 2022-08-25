@@ -56,4 +56,29 @@ class FunctionalButton extends React.Component {
   }
 }
 
-export { SubSectionButton, ModeButton, FunctionalButton };
+class ChangeLangButton extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleOnClick = this.handleOnClick.bind(this);
+  }
+
+  handleOnClick(e) {
+    e.preventDefault();
+    this.props.onButtonClick(e.target.name);
+  }
+
+  render() {
+    return (
+      <button
+        className="change-lang"
+        name={this.props.name}
+        onClick={this.handleOnClick}
+      >
+        {this.props.value}
+      </button>
+    );
+  }
+}
+
+export { SubSectionButton, ModeButton, FunctionalButton, ChangeLangButton };

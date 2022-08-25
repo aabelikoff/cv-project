@@ -9,6 +9,7 @@ import {
 } from './Forms';
 import { SubSectionButton, FunctionalButton } from './Buttons';
 import { CVReady } from './CVReady';
+import Lang from './Languages';
 
 class FormsContainer extends React.Component {
   constructor(props) {
@@ -157,68 +158,82 @@ class FormsContainer extends React.Component {
   }
 
   render() {
+    const content = Lang[this.props.lang];
+    const headerContent = content.header;
+    const buttonContent = content.button;
+    const placeholderContent = content.placeholder;
+    const titleContent = content.title;
+    const separatorContent = content.separator;
+
     let displayForm = this.props.mode === 'input' ? 'block' : 'none';
     return (
       <div>
         <div className="cv-form" style={{ display: displayForm }}>
           <section>
-            <h2>Personal information</h2>
-            <PersonalInfoForm onFormChange={this.updateInfo} />;
+            <h2>{headerContent.personalInfo}</h2>
+            <PersonalInfoForm
+              onFormChange={this.updateInfo}
+              placeholderContent={placeholderContent}
+            />
+            ;
           </section>
           <section>
-            <h2>Education</h2>
+            <h2>{headerContent.education}</h2>
             {this.state.education.map((elem, index) => {
               return (
                 <EducationInfoForm
                   onFormChange={this.updateInfoInArray}
+                  placeholderContent={placeholderContent}
                   index={index}
                   key={index}
                 />
               );
             })}
             <SubSectionButton
-              value="Add"
+              value={buttonContent.add}
               section="education"
               onButtonClick={this.addSubsection}
             />
             {this.state.education.length > 0 && (
               <SubSectionButton
-                value="Delete"
+                value={buttonContent.delete}
                 section="education"
                 onButtonClick={this.removeSubsection}
               />
             )}
           </section>
           <section>
-            <h2>Experience</h2>
+            <h2>{headerContent.experience}</h2>
             {this.state.experience.map((elem, index) => {
               return (
                 <ExperienceInfoForm
                   onFormChange={this.updateInfoInArray}
+                  placeholderContent={placeholderContent}
                   index={index}
                   key={index}
                 />
               );
             })}
             <SubSectionButton
-              value="Add"
+              value={buttonContent.add}
               section="experience"
               onButtonClick={this.addSubsection}
             />
             {this.state.experience.length > 0 && (
               <SubSectionButton
-                value="Delete"
+                value={buttonContent.delete}
                 section="experience"
                 onButtonClick={this.removeSubsection}
               />
             )}
           </section>
           <section>
-            <h2>Languages</h2>
+            <h2>{headerContent.languages}</h2>
             {this.state.languages.map((elem, index) => {
               return (
                 <LanguageInfoForm
                   onFormChange={this.updateInfoInArray}
+                  placeholderContent={placeholderContent}
                   index={index}
                   key={index}
                 />
@@ -226,40 +241,51 @@ class FormsContainer extends React.Component {
             })}
             {/* <LanguageInfoForm onFormChange={this.updateInfoInArray} index={0} /> */}
             <SubSectionButton
-              value="Add"
+              value={buttonContent.add}
               section="languages"
               onButtonClick={this.addSubsection}
             />
             {this.state.languages.length > 0 && (
               <SubSectionButton
-                value="Delete"
+                value={buttonContent.delete}
                 section="languages"
                 onButtonClick={this.removeSubsection}
               />
             )}
           </section>
           <section>
-            <h2>Skills</h2>
+            <h2>{headerContent.skills}</h2>
             <TextAreaInfoForm
               onFormChange={this.updateInfoInTextarea}
               section="skills"
               name="skill"
-              placeholder="Skills"
+              placeholder={placeholderContent.skills}
             />
           </section>
           <section>
-            <h2>Sertifications</h2>
+            <h2>{headerContent.certifications}</h2>
             <TextAreaInfoForm
               onFormChange={this.updateInfoInTextarea}
               section="certifications"
               name="certificate"
-              placeholder="Certifications"
+              placeholder={placeholderContent.sertificates}
             />
           </section>
         </div>
-        <CVReady info={this.state} mode={this.props.mode} />
-        <FunctionalButton value="Load CV" onButtonClick={this.loadInfo} />
-        <FunctionalButton value="Save CV" onButtonClick={this.saveInfo} />
+        <CVReady
+          info={this.state}
+          mode={this.props.mode}
+          titleContent={titleContent}
+          separatorContent={separatorContent}
+        />
+        <FunctionalButton
+          value={buttonContent.load}
+          onButtonClick={this.loadInfo}
+        />
+        <FunctionalButton
+          value={buttonContent.save}
+          onButtonClick={this.saveInfo}
+        />
       </div>
     );
   }

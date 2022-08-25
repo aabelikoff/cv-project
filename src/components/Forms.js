@@ -70,15 +70,28 @@ class PersonalInfoForm extends React.Component {
   }
 
   render() {
+    const plContent = this.props.placeholderContent;
     return (
       <form onChange={this.handleOnChange}>
-        <Input type="text" placeholder="First name" name="firstName" />
-        <Input type="text" placeholder="Second name" name="secondName" />
-        <Input type="text" placeholder="Address" name="address" />
-        <Input type="text" placeholder="Phone" name="phone" />
-        <Input type="email" placeholder="Email" name="email" />
-        <Input type="file" placeholder="Photo" alt="myPhoto" name="myPhoto" />
-        <textarea placeholder="Description" name="description"></textarea>
+        <Input type="text" placeholder={plContent.firstName} name="firstName" />
+        <Input
+          type="text"
+          placeholder={plContent.secondName}
+          name="secondName"
+        />
+        <Input type="text" placeholder={plContent.address} name="address" />
+        <Input type="text" placeholder={plContent.phone} name="phone" />
+        <Input type="email" placeholder={plContent.email} name="email" />
+        <Input
+          type="file"
+          placeholder={plContent.photo}
+          alt="myPhoto"
+          name="myPhoto"
+        />
+        <textarea
+          placeholder={plContent.description}
+          name="description"
+        ></textarea>
       </form>
     );
   }
@@ -100,14 +113,19 @@ class EducationInfoForm extends React.Component {
   }
 
   render() {
+    const plContent = this.props.placeholderContent;
     return (
       <form onChange={this.handleOnChange}>
-        <Input type="text" placeholder="University" name="university" />
-        <Input type="text" placeholder="City" name="city" />
-        <Input type="text" placeholder="Degree" name="degree" />
-        <Input type="text" placeholder="Subject" name="subject" />
-        <Input type="date" placeholder="From" name="dateFrom" />
-        <Input type="date" placeholder="To" name="dateTo" />
+        <Input
+          type="text"
+          placeholder={plContent.university}
+          name="university"
+        />
+        <Input type="text" placeholder={plContent.city} name="city" />
+        <Input type="text" placeholder={plContent.degree} name="degree" />
+        <Input type="text" placeholder={plContent.subject} name="subject" />
+        <Input type="date" placeholder={plContent.dateFrom} name="dateFrom" />
+        <Input type="date" placeholder={plContent.dateTo} name="dateTo" />
       </form>
     );
   }
@@ -129,15 +147,19 @@ class ExperienceInfoForm extends React.Component {
   }
 
   render() {
+    const plContent = this.props.placeholderContent;
     return (
       <form onChange={this.handleOnChange}>
-        <Input type="text" placeholder="Company" name="company" />
-        <Input type="text" placeholder="Position" name="position" />
-        <Input type="text" placeholder="City" name="city" />
-        <Input type="date" placeholder="From" name="dateFrom" />
-        <Input type="date" placeholder="To" name="dateTo" />
-        <textarea placeholder="Duties" name="duties"></textarea>
-        <textarea placeholder="Achievments" name="achievements"></textarea>
+        <Input type="text" placeholder={plContent.company} name="company" />
+        <Input type="text" placeholder={plContent.position} name="position" />
+        <Input type="text" placeholder={plContent.city} name="city" />
+        <Input type="date" placeholder={plContent.dateFrom} name="dateFrom" />
+        <Input type="date" placeholder={plContent.dateTo} name="dateTo" />
+        <textarea placeholder={plContent.duties} name="duties"></textarea>
+        <textarea
+          placeholder={plContent.achievements}
+          name="achievements"
+        ></textarea>
       </form>
     );
   }
@@ -159,10 +181,11 @@ class LanguageInfoForm extends React.Component {
   }
 
   render() {
+    const plContent = this.props.placeholderContent;
     return (
       <form onChange={this.handleOnChange}>
-        <Input type="text" placeholder="Language" name="language" />
-        <Input type="text" placeholder="Level" name="level" />
+        <Input type="text" placeholder={plContent.language} name="language" />
+        <Input type="text" placeholder={plContent.level} name="level" />
       </form>
     );
   }

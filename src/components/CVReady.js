@@ -23,6 +23,8 @@ class CVReady extends React.Component {
     } = personalInfo;
 
     let displayCV = this.props.mode === 'preview' ? 'flex' : 'none';
+    const titleContent = this.props.titleContent;
+    const separatorContent = this.props.separatorContent;
     return (
       <div className="cv" style={{ display: displayCV }}>
         <div className="introduction">
@@ -30,16 +32,35 @@ class CVReady extends React.Component {
             {firstName} {secondName}
           </h1>
           <Photo url={myPhoto} />
-          <ContactInfo address={address} phone={phone} email={email} />
-          <LanguagesInfo languages={languages} />
+          <ContactInfo
+            address={address}
+            phone={phone}
+            email={email}
+            titleContent={titleContent}
+          />
+          <LanguagesInfo languages={languages} titleContent={titleContent} />
         </div>
         <div className="basic-info">
-          <SummaryInfo description={description} />
-          <SkillsInfo skills={skills} name="skill" q={3} />
-          <ExperienceInfo experience={experience} />
-          <EducationInfo education={education} />
+          <SummaryInfo description={description} titleContent={titleContent} />
+          <SkillsInfo
+            skills={skills}
+            titleContent={titleContent}
+            name="skill"
+            q={3}
+          />
+          <ExperienceInfo
+            experience={experience}
+            titleContent={titleContent}
+            separatorContent={separatorContent}
+          />
+          <EducationInfo
+            education={education}
+            titleContent={titleContent}
+            separatorContent={separatorContent}
+          />
           <CertificationsInfo
             sertifications={certifications}
+            titleContent={titleContent}
             name="certificate"
             q={1}
           />
@@ -71,15 +92,16 @@ class Photo extends React.Component {
 
 class ContactInfo extends React.Component {
   render() {
+    const titleContent = this.props.titleContent;
     return (
       <section>
-        <H2Title title="Contact" />
+        <H2Title title={titleContent.contact} />
         <hr></hr>
-        <H3Title title="Address:" />
+        <H3Title title={titleContent.address} />
         <p>{this.props.address}</p>
-        <H3Title title="Phone:" />
+        <H3Title title={titleContent.phone} />
         <p>{this.props.phone}</p>
-        <H3Title title="Email:" />
+        <H3Title title={titleContent.email} />
         <p>{this.props.email}</p>
       </section>
     );
@@ -132,9 +154,10 @@ class LineInfo extends React.Component {
 
 class LanguagesInfo extends React.Component {
   render() {
+    const titleContent = this.props.titleContent;
     return (
       <section>
-        <H2Title title="Languages" />
+        <H2Title title={titleContent.languages} />
         <hr></hr>
         {this.props.languages.map((langInfo, index) => {
           return (
@@ -152,9 +175,10 @@ class LanguagesInfo extends React.Component {
 
 class SummaryInfo extends React.Component {
   render() {
+    const titleContent = this.props.titleContent;
     return (
       <section>
-        <H2Title title="Summary" />
+        <H2Title title={titleContent.description} />
         <hr></hr>
         <div className="simple-info">{this.props.description}</div>
       </section>
@@ -203,9 +227,10 @@ class ListInfo extends React.Component {
 
 class SkillsInfo extends React.Component {
   render() {
+    const titleContent = this.props.titleContent;
     return (
       <section>
-        <H2Title title="Skill highlights" />
+        <H2Title title={titleContent.skills} />
         <hr></hr>
         <ListInfo
           listedInfo={this.props.skills}
@@ -219,9 +244,10 @@ class SkillsInfo extends React.Component {
 
 class CertificationsInfo extends React.Component {
   render() {
+    const titleContent = this.props.titleContent;
     return (
       <section>
-        <H2Title title="Sertifications" />
+        <H2Title title={titleContent.certifications} />
         <hr></hr>
         <ListInfo
           listedInfo={this.props.sertifications}
@@ -235,12 +261,20 @@ class CertificationsInfo extends React.Component {
 
 class ExperienceInfo extends React.Component {
   render() {
+    const titleContent = this.props.titleContent;
+    const separatorContent = this.props.separatorContent;
     let jobs = this.props.experience.map((job) => {
-      return <ExperienceSubsection infoObj={job} key={nanoid(2)} />;
+      return (
+        <ExperienceSubsection
+          infoObj={job}
+          separatorContent={separatorContent}
+          key={nanoid(2)}
+        />
+      );
     });
     return (
       <section>
-        <H2Title title="Experience" />
+        <H2Title title={titleContent.experience} />
         <hr></hr>
         {jobs}
       </section>
@@ -252,12 +286,13 @@ class ExperienceSubsection extends React.Component {
   render() {
     const { company, position, city, dateFrom, dateTo, duties, achievements } =
       this.props.infoObj;
+    const separatorContent = this.props.separatorContent;
 
     return (
       <div className="subsection">
         <LineInfo
           infoObj={{ position, dateFrom, dateTo }}
-          separators={{ 0: ':', 1: ' to' }}
+          separators={{ 0: ':', 1: `${separatorContent.to}` }}
         />
         <LineInfo infoObj={{ company, city }} separators={{ 0: ',' }} />
         <ListInfo listedInfo={duties} q={1} />
@@ -269,12 +304,20 @@ class ExperienceSubsection extends React.Component {
 
 class EducationInfo extends React.Component {
   render() {
+    const titleContent = this.props.titleContent;
+    const separatorContent = this.props.separatorContent;
     let edus = this.props.education.map((edu) => {
-      return <EducationSubsection infoObj={edu} key={nanoid(2)} />;
+      return (
+        <EducationSubsection
+          infoObj={edu}
+          separatorContent={separatorContent}
+          key={nanoid(2)}
+        />
+      );
     });
     return (
       <section>
-        <H2Title title="Education" />
+        <H2Title title={titleContent.education} />
         <hr></hr>
         {edus}
       </section>
@@ -284,6 +327,7 @@ class EducationInfo extends React.Component {
 
 class EducationSubsection extends React.Component {
   render() {
+    const separatorContent = this.props.separatorContent;
     const { university, city, degree, subject, dateFrom, dateTo } =
       this.props.infoObj;
 
@@ -291,7 +335,7 @@ class EducationSubsection extends React.Component {
       <div className="subsection">
         <LineInfo
           infoObj={{ degree, subject, dateFrom, dateTo }}
-          separators={{ 0: ':', 1: ' -', 2: ' to' }}
+          separators={{ 0: ':', 1: ' -', 2: `${separatorContent.to}` }}
         />
         <LineInfo infoObj={{ university, city }} separators={{ 0: ',' }} />
       </div>
