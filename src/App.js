@@ -10,6 +10,8 @@ import { CVReady } from './components/CVReady';
 import { Header } from './components/Header';
 import React from 'react';
 import './styles/App.css';
+import ReactToPrint from 'react-to-print';
+import { PrintButton } from './components/Buttons';
 
 class App extends React.Component {
   constructor(props) {
@@ -41,7 +43,19 @@ class App extends React.Component {
           onChangeLanguage={this.changeLanguage}
           lang={this.state.appLang}
         />
-        <FormsContainer mode={this.state.appMode} lang={this.state.appLang} />
+        <FormsContainer
+          mode={this.state.appMode}
+          lang={this.state.appLang}
+          ref={(el) => (this.componentRef = el)}
+        />
+        {this.state.appMode === 'preview' && (
+          <ReactToPrint
+            trigger={() => {
+              return <PrintButton buttonLang={this.state.appLang} />;
+            }}
+            content={() => this.componentRef}
+          />
+        )}
       </div>
     );
   }

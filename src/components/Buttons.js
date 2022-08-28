@@ -59,7 +59,6 @@ class FunctionalButton extends React.Component {
 class ChangeLangButton extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleOnClick = this.handleOnClick.bind(this);
   }
 
@@ -69,9 +68,13 @@ class ChangeLangButton extends React.Component {
   }
 
   render() {
+    const properClass =
+      this.props.name === this.props.lang
+        ? 'change-lang yellow-color'
+        : 'change-lang';
     return (
       <button
-        className="change-lang"
+        className={properClass}
         name={this.props.name}
         onClick={this.handleOnClick}
       >
@@ -81,4 +84,23 @@ class ChangeLangButton extends React.Component {
   }
 }
 
-export { SubSectionButton, ModeButton, FunctionalButton, ChangeLangButton };
+class PrintButton extends React.Component {
+  render() {
+    let buttonValue = 'Print CV';
+    if (this.props.buttonLang === 'ua') {
+      buttonValue = 'Друк';
+    } else if (this.props.buttonLang === 'ru') {
+      buttonValue = 'Печать';
+    }
+
+    return <button>{buttonValue}</button>;
+  }
+}
+
+export {
+  SubSectionButton,
+  ModeButton,
+  FunctionalButton,
+  ChangeLangButton,
+  PrintButton,
+};

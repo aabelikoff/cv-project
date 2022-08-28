@@ -42,7 +42,6 @@ class PersonalInfoForm extends React.Component {
   constructor(props) {
     super(props);
     this.section = 'personalInfo';
-
     this.handleOnChange = this.handleOnChange.bind(this);
   }
 
@@ -73,6 +72,12 @@ class PersonalInfoForm extends React.Component {
     const plContent = this.props.placeholderContent;
     return (
       <form onChange={this.handleOnChange}>
+        <Input
+          type="file"
+          placeholder={plContent.photo}
+          alt="myPhoto"
+          name="myPhoto"
+        />
         <Input type="text" placeholder={plContent.firstName} name="firstName" />
         <Input
           type="text"
@@ -82,12 +87,7 @@ class PersonalInfoForm extends React.Component {
         <Input type="text" placeholder={plContent.address} name="address" />
         <Input type="text" placeholder={plContent.phone} name="phone" />
         <Input type="email" placeholder={plContent.email} name="email" />
-        <Input
-          type="file"
-          placeholder={plContent.photo}
-          alt="myPhoto"
-          name="myPhoto"
-        />
+
         <textarea
           placeholder={plContent.description}
           name="description"

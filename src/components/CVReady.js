@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/CVReady.css';
 import { nanoid } from 'nanoid';
+import { ReactToPrint } from 'react-to-print';
 
 class CVReady extends React.Component {
   render() {

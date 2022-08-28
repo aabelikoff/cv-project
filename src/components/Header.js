@@ -15,20 +15,23 @@ class Header extends React.Component {
       <header>
         <div className="app-info">
           <div className="logo"></div>
-          <div className="app-name">CV Creator</div>
+          <h2 className="app-name">CV Creator</h2>
         </div>
         <div className="languages">
           <ChangeLangButton
+            lang={this.props.lang}
             name="en"
             value="language"
             onButtonClick={this.props.onChangeLanguage}
           />
           <ChangeLangButton
+            lang={this.props.lang}
             name="ua"
             value="мова"
             onButtonClick={this.props.onChangeLanguage}
           />
           <ChangeLangButton
+            lang={this.props.lang}
             name="ru"
             value="язык"
             onButtonClick={this.props.onChangeLanguage}

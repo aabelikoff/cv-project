@@ -10,6 +10,7 @@ import {
 import { SubSectionButton, FunctionalButton } from './Buttons';
 import { CVReady } from './CVReady';
 import Lang from './Languages';
+import { ReactToPrint } from 'react-to-print';
 
 class FormsContainer extends React.Component {
   constructor(props) {
@@ -167,7 +168,7 @@ class FormsContainer extends React.Component {
 
     let displayForm = this.props.mode === 'input' ? 'block' : 'none';
     return (
-      <div>
+      <div className="cv-container">
         <div className="cv-form" style={{ display: displayForm }}>
           <section>
             <h2>{headerContent.personalInfo}</h2>
@@ -278,6 +279,7 @@ class FormsContainer extends React.Component {
           titleContent={titleContent}
           separatorContent={separatorContent}
         />
+
         <FunctionalButton
           value={buttonContent.load}
           onButtonClick={this.loadInfo}
