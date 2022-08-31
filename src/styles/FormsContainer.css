@@ -1,12 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Montserrat:wght@300;400;500&display=swap');
+
+
 .cv-container{
     width: 90%;
     margin:auto;
     margin-top: 2%;
     border: 1px dotted;
-
+    font-family: 'Montserrat', sans-serif;
+    background-color: #f5f0e1;
+    margin-bottom: 2%;
 }
 
 .cv-form{
     margin: auto;
     width: 90%;
+}
+
+.cv-form h2 {
+    color: #1e3d59;
+
+}
+
+.sub-buttons {
+    text-align: right;
+}
+
+.func-buttons {
+    height: 30px;
+    text-align: center;
+    margin-bottom: 10px;
 }

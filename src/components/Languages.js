@@ -38,6 +38,7 @@ const Lang = {
       save: 'Save',
       input: 'Input',
       preview: 'Preview',
+      chose: 'Chose file',
     },
     title: {
       contact: 'Contact',
@@ -53,6 +54,10 @@ const Lang = {
     },
     separator: {
       to: 'to',
+    },
+    info: {
+      chose_file: 'File is not chosen.',
+      file_name: 'File name',
     },
   },
   ru: {
@@ -94,6 +99,7 @@ const Lang = {
       save: 'Сохранить',
       input: 'Ввод',
       preview: 'Просмотр',
+      chose: 'Выберите файл',
     },
     title: {
       contact: 'Контакты',
@@ -110,11 +116,15 @@ const Lang = {
     separator: {
       to: 'до',
     },
+    info: {
+      chose_file: 'Файл не выбран.',
+      file_name: 'Файл',
+    },
   },
   ua: {
     placeholder: {
       firstName: "Ім'я",
-      secondName: 'Призвище',
+      secondName: 'Прізвище',
       address: 'Адреса',
       phone: 'Номер телефону',
       email: 'Ел. пошта',
@@ -150,6 +160,7 @@ const Lang = {
       save: 'Зберегти',
       input: 'Введення',
       preview: 'Перегляд',
+      chose: 'Виберіть файл',
     },
     title: {
       contact: 'Контакти',
@@ -165,6 +176,10 @@ const Lang = {
     },
     separator: {
       to: 'до',
+    },
+    info: {
+      chose_file: 'Файл не обраний.',
+      file_name: 'Файл',
     },
   },
 };

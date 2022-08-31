@@ -165,6 +165,7 @@ class FormsContainer extends React.Component {
     const placeholderContent = content.placeholder;
     const titleContent = content.title;
     const separatorContent = content.separator;
+    const infoContent = content.info;
 
     let displayForm = this.props.mode === 'input' ? 'block' : 'none';
     return (
@@ -175,8 +176,9 @@ class FormsContainer extends React.Component {
             <PersonalInfoForm
               onFormChange={this.updateInfo}
               placeholderContent={placeholderContent}
+              buttonContent={buttonContent}
+              infoContent={infoContent}
             />
-            ;
           </section>
           <section>
             <h2>{headerContent.education}</h2>
@@ -190,18 +192,20 @@ class FormsContainer extends React.Component {
                 />
               );
             })}
-            <SubSectionButton
-              value={buttonContent.add}
-              section="education"
-              onButtonClick={this.addSubsection}
-            />
-            {this.state.education.length > 0 && (
+            <div className="sub-buttons">
               <SubSectionButton
-                value={buttonContent.delete}
+                value={buttonContent.add}
                 section="education"
-                onButtonClick={this.removeSubsection}
+                onButtonClick={this.addSubsection}
               />
-            )}
+              {this.state.education.length > 0 && (
+                <SubSectionButton
+                  value={buttonContent.delete}
+                  section="education"
+                  onButtonClick={this.removeSubsection}
+                />
+              )}
+            </div>
           </section>
           <section>
             <h2>{headerContent.experience}</h2>
@@ -215,18 +219,20 @@ class FormsContainer extends React.Component {
                 />
               );
             })}
-            <SubSectionButton
-              value={buttonContent.add}
-              section="experience"
-              onButtonClick={this.addSubsection}
-            />
-            {this.state.experience.length > 0 && (
+            <div className="sub-buttons">
               <SubSectionButton
-                value={buttonContent.delete}
+                value={buttonContent.add}
                 section="experience"
-                onButtonClick={this.removeSubsection}
+                onButtonClick={this.addSubsection}
               />
-            )}
+              {this.state.experience.length > 0 && (
+                <SubSectionButton
+                  value={buttonContent.delete}
+                  section="experience"
+                  onButtonClick={this.removeSubsection}
+                />
+              )}
+            </div>
           </section>
           <section>
             <h2>{headerContent.languages}</h2>
@@ -240,19 +246,20 @@ class FormsContainer extends React.Component {
                 />
               );
             })}
-            {/* <LanguageInfoForm onFormChange={this.updateInfoInArray} index={0} /> */}
-            <SubSectionButton
-              value={buttonContent.add}
-              section="languages"
-              onButtonClick={this.addSubsection}
-            />
-            {this.state.languages.length > 0 && (
+            <div className="sub-buttons">
               <SubSectionButton
-                value={buttonContent.delete}
+                value={buttonContent.add}
                 section="languages"
-                onButtonClick={this.removeSubsection}
+                onButtonClick={this.addSubsection}
               />
-            )}
+              {this.state.languages.length > 0 && (
+                <SubSectionButton
+                  value={buttonContent.delete}
+                  section="languages"
+                  onButtonClick={this.removeSubsection}
+                />
+              )}
+            </div>
           </section>
           <section>
             <h2>{headerContent.skills}</h2>
@@ -278,15 +285,6 @@ class FormsContainer extends React.Component {
           mode={this.props.mode}
           titleContent={titleContent}
           separatorContent={separatorContent}
-        />
-
-        <FunctionalButton
-          value={buttonContent.load}
-          onButtonClick={this.loadInfo}
-        />
-        <FunctionalButton
-          value={buttonContent.save}
-          onButtonClick={this.saveInfo}
         />
       </div>
     );

@@ -11,7 +11,8 @@ import { Header } from './components/Header';
 import React from 'react';
 import './styles/App.css';
 import ReactToPrint from 'react-to-print';
-import { PrintButton } from './components/Buttons';
+import { PrintButton, FunctionalButton } from './components/Buttons';
+import Lang from './components/Languages';
 
 class App extends React.Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class App extends React.Component {
   }
 
   render() {
+    let buttonContent = Lang[this.state.appLang].button;
     return (
       <div className="App">
         <Header
@@ -47,7 +49,29 @@ class App extends React.Component {
           mode={this.state.appMode}
           lang={this.state.appLang}
           ref={(el) => (this.componentRef = el)}
+          load={this.state.load}
+          save={this.state.save}
         />
+        <div className="func-buttons">
+          <button
+            name="load"
+            onClick={(e) => {
+              e.preventDefault();
+              this.changeInfo('load');
+            }}
+          >
+            {buttonContent.load}
+          </button>
+          <button
+            name="save"
+            onClick={(e) => {
+              e.preventDefault();
+              this.changeInfo('save');
+            }}
+          >
+            {buttonContent.save}
+          </button>
+        </div>
         {this.state.appMode === 'preview' && (
           <ReactToPrint
             trigger={() => {

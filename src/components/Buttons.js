@@ -14,7 +14,11 @@ class SubSectionButton extends React.Component {
   }
 
   render() {
-    return <button onClick={this.handleOnClick}>{this.props.value}</button>;
+    return (
+      <button className="subsection-btn" onClick={this.handleOnClick}>
+        {this.props.value}
+      </button>
+    );
   }
 }
 
@@ -44,11 +48,11 @@ class FunctionalButton extends React.Component {
   render() {
     return (
       <button
-        className="f-button"
-        onClick={(e) => {
-          e.preventDefault();
-          this.props.onButtonClick();
-        }}
+        className="functional-btn"
+        // onClick={(e) => {
+        //   e.preventDefault();
+        //   this.props.onButtonClick();
+        // }}
       >
         {this.props.value}
       </button>
