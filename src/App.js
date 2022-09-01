@@ -3,8 +3,8 @@ import { CVReady } from './components/CVReady';
 import { Header } from './components/Header';
 import React from 'react';
 import './styles/App.css';
-import ReactToPrint from 'react-to-print';
-import { PrintButton, FunctionalButton } from './components/Buttons';
+import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
+import { FunctionalButton } from './components/Buttons';
 import Lang from './components/Languages';
 
 class App extends React.Component {
@@ -227,15 +227,17 @@ class App extends React.Component {
             onButtonClick={this.saveInfo}
             value={buttonContent.save}
           />
+
+          {this.state.appMode === 'preview' && (
+            <ReactToPrint content={() => this.componentRef}>
+              <PrintContextConsumer>
+                {({ handlePrint }) => (
+                  <button onClick={handlePrint}>{buttonContent.print}</button>
+                )}
+              </PrintContextConsumer>
+            </ReactToPrint>
+          )}
         </div>
-        {this.state.appMode === 'preview' && (
-          <ReactToPrint
-            trigger={() => {
-              return <PrintButton buttonLang={this.state.appLang} />;
-            }}
-            content={() => this.componentRef}
-          />
-        )}
       </div>
     );
   }

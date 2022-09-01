@@ -39,6 +39,7 @@ const Lang = {
       input: 'Input',
       preview: 'Preview',
       chose: 'Chose file',
+      print: 'Print',
     },
     title: {
       contact: 'Contact',
@@ -100,6 +101,7 @@ const Lang = {
       input: 'Ввод',
       preview: 'Просмотр',
       chose: 'Выберите файл',
+      print: 'Печать',
     },
     title: {
       contact: 'Контакты',
@@ -161,6 +163,7 @@ const Lang = {
       input: 'Введення',
       preview: 'Перегляд',
       chose: 'Виберіть файл',
+      print: 'Друк',
     },
     title: {
       contact: 'Контакти',

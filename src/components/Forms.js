@@ -1,4 +1,3 @@
-import { toHaveDisplayValue } from '@testing-library/jest-dom/dist/matchers';
 import React from 'react';
 import '../styles/Forms.css';
 
@@ -11,6 +10,7 @@ class Input extends React.Component {
         name={this.props.name}
         accept={this.props.accept}
         className={this.props.className}
+        defaultValue={this.props.defaultValue}
       ></input>
     );
   }
@@ -21,10 +21,6 @@ class PhotoInput extends React.Component {
     super(props);
     this.handleOnChange = this.handleOnChange.bind(this);
     this.displayFileName = this.displayFileName.bind(this);
-
-    this.state = {
-      fileName: '',
-    };
   }
 
   handleOnChange(e) {
@@ -45,17 +41,17 @@ class PhotoInput extends React.Component {
     }).then((data) => {
       this.props.onFormChange(this.props.section, key, data);
       this.props.onFormChange(this.props.section, 'fileName', fileName);
-      this.setState({
-        fileName: fileName,
-      });
+      // this.setState({
+      //   fileName: fileName,
+      // });
     });
   }
 
   displayFileName() {
-    if (!this.state.fileName) {
+    if (!this.props.defaultValue) {
       return `${this.props.infoContent.chose_file}`;
     }
-    return `${this.props.infoContent.file_name}: ${this.state.fileName}.`;
+    return `${this.props.infoContent.file_name}: ${this.props.defaultValue}.`;
   }
 
   render() {
@@ -79,8 +75,14 @@ class PhotoInput extends React.Component {
 class TextAreaInfoForm extends React.Component {
   constructor(props) {
     super(props);
-
     this.handleOnChange = this.handleOnChange.bind(this);
+    this.createTextAriaContent = this.createTextAriaContent.bind(this);
+  }
+
+  createTextAriaContent(array) {
+    return array.reduce((str, elem) => {
+      return str + elem[this.props.name] + '\n';
+    }, '');
   }
 
   handleOnChange(e) {
@@ -98,6 +100,7 @@ class TextAreaInfoForm extends React.Component {
         name={this.props.name}
         onChange={this.handleOnChange}
         accept={this.props.accept}
+        defaultValue={this.createTextAriaContent(this.props.defaultValues)}
       ></textarea>
     );
   }
@@ -121,25 +124,48 @@ class PersonalInfoForm extends React.Component {
     const plContent = this.props.placeholderContent;
     return (
       <form onChange={this.handleOnChange}>
-        <Input type="text" placeholder={plContent.firstName} name="firstName" />
+        <Input
+          type="text"
+          placeholder={plContent.firstName}
+          name="firstName"
+          defaultValue={this.props.defaultValues['firstName']}
+        />
         <Input
           type="text"
           placeholder={plContent.secondName}
           name="secondName"
+          defaultValue={this.props.defaultValues['secondName']}
         />
         <PhotoInput
           onFormChange={this.props.onFormChange}
           section={this.section}
           buttonContent={this.props.buttonContent}
           infoContent={this.props.infoContent}
+          defaultValue={this.props.defaultValues['fileName']}
         />
-        <Input type="text" placeholder={plContent.address} name="address" />
-        <Input type="text" placeholder={plContent.phone} name="phone" />
-        <Input type="email" placeholder={plContent.email} name="email" />
+        <Input
+          type="text"
+          placeholder={plContent.address}
+          name="address"
+          defaultValue={this.props.defaultValues['address']}
+        />
+        <Input
+          type="text"
+          placeholder={plContent.phone}
+          name="phone"
+          defaultValue={this.props.defaultValues['phone']}
+        />
+        <Input
+          type="email"
+          placeholder={plContent.email}
+          name="email"
+          defaultValue={this.props.defaultValues['email']}
+        />
 
         <textarea
           placeholder={plContent.description}
           name="description"
+          defaultValue={this.props.defaultValues['description']}
         ></textarea>
       </form>
     );
@@ -169,12 +195,38 @@ class EducationInfoForm extends React.Component {
             type="text"
             placeholder={plContent.university}
             name="university"
+            defaultValue={this.props.defaultValues['university']}
           />
-          <Input type="text" placeholder={plContent.city} name="city" />
-          <Input type="text" placeholder={plContent.degree} name="degree" />
-          <Input type="text" placeholder={plContent.subject} name="subject" />
-          <Input type="date" placeholder={plContent.dateFrom} name="dateFrom" />
-          <Input type="date" placeholder={plContent.dateTo} name="dateTo" />
+          <Input
+            type="text"
+            placeholder={plContent.city}
+            name="city"
+            defaultValue={this.props.defaultValues['city']}
+          />
+          <Input
+            type="text"
+            placeholder={plContent.degree}
+            name="degree"
+            defaultValue={this.props.defaultValues['degree']}
+          />
+          <Input
+            type="text"
+            placeholder={plContent.subject}
+            name="subject"
+            defaultValue={this.props.defaultValues['subject']}
+          />
+          <Input
+            type="date"
+            placeholder={plContent.dateFrom}
+            name="dateFrom"
+            defaultValue={this.props.defaultValues['dateFrom']}
+          />
+          <Input
+            type="date"
+            placeholder={plContent.dateTo}
+            name="dateTo"
+            defaultValue={this.props.defaultValues['dateTo']}
+          />
         </form>
       </fieldset>
     );
@@ -186,6 +238,7 @@ class ExperienceInfoForm extends React.Component {
     super(props);
     this.section = 'experience';
     this.handleOnChange = this.handleOnChange.bind(this);
+    this.createTextAriaContent = this.createTextAriaContent.bind(this);
   }
 
   handleOnChange(e) {
@@ -195,20 +248,60 @@ class ExperienceInfoForm extends React.Component {
     this.props.onFormChange(this.section, key, value, this.props.index);
   }
 
+  createTextAriaContent(array) {
+    return array.reduce((str, elem) => {
+      return str + elem + '\n';
+    }, '');
+  }
+
   render() {
     const plContent = this.props.placeholderContent;
     return (
       <fieldset>
         <form onChange={this.handleOnChange}>
-          <Input type="text" placeholder={plContent.company} name="company" />
-          <Input type="text" placeholder={plContent.position} name="position" />
-          <Input type="text" placeholder={plContent.city} name="city" />
-          <Input type="date" placeholder={plContent.dateFrom} name="dateFrom" />
-          <Input type="date" placeholder={plContent.dateTo} name="dateTo" />
-          <textarea placeholder={plContent.duties} name="duties"></textarea>
+          <Input
+            type="text"
+            placeholder={plContent.company}
+            name="company"
+            defaultValue={this.props.defaultValues['company']}
+          />
+          <Input
+            type="text"
+            placeholder={plContent.position}
+            name="position"
+            defaultValue={this.props.defaultValues['position']}
+          />
+          <Input
+            type="text"
+            placeholder={plContent.city}
+            name="city"
+            defaultValue={this.props.defaultValues['city']}
+          />
+          <Input
+            type="date"
+            placeholder={plContent.dateFrom}
+            name="dateFrom"
+            defaultValue={this.props.defaultValues['dateFrom']}
+          />
+          <Input
+            type="date"
+            placeholder={plContent.dateTo}
+            name="dateTo"
+            defaultValue={this.props.defaultValues['dateTo']}
+          />
+          <textarea
+            placeholder={plContent.duties}
+            name="duties"
+            defaultValue={this.createTextAriaContent(
+              this.props.defaultValues['duties']
+            )}
+          ></textarea>
           <textarea
             placeholder={plContent.achievements}
             name="achievements"
+            defaultValue={this.createTextAriaContent(
+              this.props.defaultValues['achievements']
+            )}
           ></textarea>
         </form>
       </fieldset>
@@ -236,8 +329,18 @@ class LanguageInfoForm extends React.Component {
     return (
       <fieldset>
         <form onChange={this.handleOnChange}>
-          <Input type="text" placeholder={plContent.language} name="language" />
-          <Input type="text" placeholder={plContent.level} name="level" />
+          <Input
+            type="text"
+            placeholder={plContent.language}
+            name="language"
+            defaultValue={this.props.defaultValues['language']}
+          />
+          <Input
+            type="text"
+            placeholder={plContent.level}
+            name="level"
+            defaultValue={this.props.defaultValues['level']}
+          />
         </form>
       </fieldset>
     );

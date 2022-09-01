@@ -19,7 +19,6 @@ class FormsContainer extends React.Component {
     return (
       <div className="cv-container">
         <div className="cv-form">
-          {/* style={{ display: displayForm }} */}
           <section>
             <h2>{headerContent.personalInfo}</h2>
             <PersonalInfoForm
@@ -27,6 +26,7 @@ class FormsContainer extends React.Component {
               placeholderContent={placeholderContent}
               buttonContent={buttonContent}
               infoContent={infoContent}
+              defaultValues={this.props.info.personalInfo}
             />
           </section>
           <section>
@@ -38,6 +38,7 @@ class FormsContainer extends React.Component {
                   placeholderContent={placeholderContent}
                   index={index}
                   key={index}
+                  defaultValues={this.props.info.education[index]}
                 />
               );
             })}
@@ -66,6 +67,7 @@ class FormsContainer extends React.Component {
                   placeholderContent={placeholderContent}
                   index={index}
                   key={index}
+                  defaultValues={this.props.info.experience[index]}
                 />
               );
             })}
@@ -94,6 +96,7 @@ class FormsContainer extends React.Component {
                   placeholderContent={placeholderContent}
                   index={index}
                   key={index}
+                  defaultValues={this.props.info.languages[index]}
                 />
               );
             })}
@@ -119,6 +122,7 @@ class FormsContainer extends React.Component {
               section="skills"
               name="skill"
               placeholder={placeholderContent.skills}
+              defaultValues={this.props.info.skills}
             />
           </section>
           <section>
@@ -128,6 +132,7 @@ class FormsContainer extends React.Component {
               section="certifications"
               name="certificate"
               placeholder={placeholderContent.sertificates}
+              defaultValues={this.props.info.certifications}
             />
           </section>
         </div>

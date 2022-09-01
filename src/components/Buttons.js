@@ -88,23 +88,4 @@ class ChangeLangButton extends React.Component {
   }
 }
 
-class PrintButton extends React.Component {
-  render() {
-    let buttonValue = 'Print CV';
-    if (this.props.buttonLang === 'ua') {
-      buttonValue = 'Друк';
-    } else if (this.props.buttonLang === 'ru') {
-      buttonValue = 'Печать';
-    }
-
-    return <button>{buttonValue}</button>;
-  }
-}
-
-export {
-  SubSectionButton,
-  ModeButton,
-  FunctionalButton,
-  ChangeLangButton,
-  PrintButton,
-};
+export { SubSectionButton, ModeButton, FunctionalButton, ChangeLangButton };
