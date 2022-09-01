@@ -49,10 +49,10 @@ class FunctionalButton extends React.Component {
     return (
       <button
         className="functional-btn"
-        // onClick={(e) => {
-        //   e.preventDefault();
-        //   this.props.onButtonClick();
-        // }}
+        onClick={(e) => {
+          e.preventDefault();
+          this.props.onButtonClick();
+        }}
       >
         {this.props.value}
       </button>

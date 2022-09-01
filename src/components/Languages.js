@@ -142,7 +142,7 @@ const Lang = {
       achievements: 'Досягнення',
       language: 'Мова',
       level: 'Рівень володіння',
-      sertificates: 'Сертіфікаты і винагороди',
+      sertificates: 'Сертіфікати і винагороди',
       skills: 'Навички та вміння',
     },
     header: {

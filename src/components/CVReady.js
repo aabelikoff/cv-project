@@ -1,7 +1,6 @@
 import React from 'react';
 import '../styles/CVReady.css';
 import { nanoid } from 'nanoid';
-import { ReactToPrint } from 'react-to-print';
 
 class CVReady extends React.Component {
   render() {
@@ -23,11 +22,10 @@ class CVReady extends React.Component {
       description,
     } = personalInfo;
 
-    let displayCV = this.props.mode === 'preview' ? 'flex' : 'none';
-    const titleContent = this.props.titleContent;
-    const separatorContent = this.props.separatorContent;
+    const titleContent = this.props.content.title;
+    const separatorContent = this.props.content.separator;
     return (
-      <div className="cv" style={{ display: displayCV }}>
+      <div className="cv">
         <div className="introduction">
           <h1>
             {firstName} {secondName}

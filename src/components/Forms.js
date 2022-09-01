@@ -1,3 +1,4 @@
+import { toHaveDisplayValue } from '@testing-library/jest-dom/dist/matchers';
 import React from 'react';
 import '../styles/Forms.css';
 
@@ -43,6 +44,7 @@ class PhotoInput extends React.Component {
       };
     }).then((data) => {
       this.props.onFormChange(this.props.section, key, data);
+      this.props.onFormChange(this.props.section, 'fileName', fileName);
       this.setState({
         fileName: fileName,
       });
@@ -183,7 +185,6 @@ class ExperienceInfoForm extends React.Component {
   constructor(props) {
     super(props);
     this.section = 'experience';
-
     this.handleOnChange = this.handleOnChange.bind(this);
   }
 
