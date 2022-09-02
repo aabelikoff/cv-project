@@ -1,42 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Montserrat:wght@300;400;500&display=swap');
 .cv {
     margin: auto;
-    width:90%;
-    height: 800px;
+    margin-top: 1%;
+    width:95%;
     display: flex;
     align-items: flex-start;
-    justify-content: flex-start;
-    border: 1px solid;
+    justify-content: space-between;
+    /* gap: 5px; */
+    /* border-bottom: 1px solid #1e3d59;
+    border-top: 1px solid #1e3d59; */
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 8px;
+    /* font-family: 'Montserrat', sans-serif; */
 }
+
+.blue-line, .empty-line{
+    margin: 0;
+    min-height: 30px;
+    width: 100%;
+    background-color: #1e3d59;
+}
+.empty-line{
+    background:none;
+}
+
 
 .introduction{
     box-sizing: border-box;
-    width: 30%;
-    border: 1px solid;
+    width: 25%;
+    /* border: 1px solid; */
+}
+
+h1, h2 {
+    color: #1e3d59;
+    font-family: Arial, Helvetica, sans-serif;
+    margin:0;
 }
 
 h1{
     font-size: 2.2em;
-    margin:5px;
+    font-weight: 900;
+    /* margin:5px; */
     min-height: 80px;
 }
 
 h2 {
-    margin:5px;
+    /* margin:5px; */
+    font-weight: 800;
 }
 
 h3 {
-    margin: 2px;
-    font-size: medium;
+    margin: 0;
+    font-size: 0.85em;
 }
 
 hr {
-    margin: 0.2em
+    margin: 0.1em
 }
 
 .basic-info{
     box-sizing: border-box;
-    width: 70%;
-    border: 1px solid;
+    width: 75%;
+    /* border: 1px solid; */
+}
+
+.subsection {
+    margin-bottom: 5px;
 }
 
 .simple-info {
@@ -44,13 +73,19 @@ hr {
 }
 
 .photo {
-    height: 350px;
-    border: 1px dotted;
+    /* border-radius: 50%; */
+    overflow: hidden;
+    max-height: 290px;
+    min-height: 200px;
+    width: 88%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:0;
 }
 
 img {
-    height:90%;
-    width: 100%;
+    width:100%;
 }
 
 .list-info {
@@ -63,6 +98,43 @@ img {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
+    gap: 3px;
+}
+
+.line-info p {
+    margin:0;
+}
+
+.position p,
+.degree p:last-child,
+.degree p:first-child +p+p {
+    /* font-size: 0.9em; */
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.position p:first-child,
+.company p:first-child,
+.degree p:first-child+p,
+.university p:first-child {
+    font-weight: bold;
+    font-style: normal;
+    max-width: 60%;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.list-info ul {
+    margin:0;
+    font-size: 0.9em;
+}
+
+.highlights .list-info ul {
+    font-size: 1em;
+    /* font-style: italic; */
+}
+.highlights .list-info ul li{
+    margin-bottom: 3px;
 }
 
 p {
@@ -70,5 +142,5 @@ p {
 }
 
 ul {
-    margin:10px;
+    padding-inline-start: 20px;
 }

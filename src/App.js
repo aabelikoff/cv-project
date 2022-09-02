@@ -4,7 +4,7 @@ import { Header } from './components/Header';
 import React from 'react';
 import './styles/App.css';
 import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
-import { FunctionalButton } from './components/Buttons';
+import { FunctionalButton, ModeButton } from './components/Buttons';
 import Lang from './components/Languages';
 
 class App extends React.Component {
@@ -12,7 +12,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      appMode: 'input',
+      appMode: 'preview',
       appLang: 'ua',
       cv: {
         personalInfo: {
@@ -218,6 +218,15 @@ class App extends React.Component {
         )}
 
         <div className="func-buttons">
+          <ModeButton
+            value={
+              this.state.appMode === 'input'
+                ? buttonContent.preview
+                : buttonContent.input
+            }
+            name={this.state.appMode === 'input' ? 'preview' : 'input'}
+            onButtonClick={this.changeAppMode}
+          />
           <FunctionalButton
             onButtonClick={this.loadInfo}
             value={buttonContent.load}
@@ -227,12 +236,13 @@ class App extends React.Component {
             onButtonClick={this.saveInfo}
             value={buttonContent.save}
           />
-
           {this.state.appMode === 'preview' && (
             <ReactToPrint content={() => this.componentRef}>
               <PrintContextConsumer>
                 {({ handlePrint }) => (
-                  <button onClick={handlePrint}>{buttonContent.print}</button>
+                  <button className="functional-btn" onClick={handlePrint}>
+                    {buttonContent.print}
+                  </button>
                 )}
               </PrintContextConsumer>
             </ReactToPrint>

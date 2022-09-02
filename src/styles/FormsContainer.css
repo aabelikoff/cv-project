@@ -5,10 +5,16 @@
     width: 90%;
     margin:auto;
     margin-top: 2%;
-    border: 1px dotted;
+    /* border: 1px dotted; */
     font-family: 'Montserrat', sans-serif;
     background-color: #f5f0e1;
-    margin-bottom: 2%;
+    margin-bottom: 1%;
+    box-shadow: 0 0 15px 1px grey;
+}
+
+input, textarea {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.02em;
 }
 
 .cv-form{

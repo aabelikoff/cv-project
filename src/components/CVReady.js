@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/CVReady.css';
 import { nanoid } from 'nanoid';
+import Photo_placeholder from '../images/photo-placeholder.png';
 
 class CVReady extends React.Component {
   render() {
@@ -27,6 +28,7 @@ class CVReady extends React.Component {
     return (
       <div className="cv">
         <div className="introduction">
+          <div className="blue-line"></div>
           <h1>
             {firstName} {secondName}
           </h1>
@@ -40,6 +42,7 @@ class CVReady extends React.Component {
           <LanguagesInfo languages={languages} titleContent={titleContent} />
         </div>
         <div className="basic-info">
+          <div className="empty-line"></div>
           <SummaryInfo description={description} titleContent={titleContent} />
           <SkillsInfo
             skills={skills}
@@ -63,6 +66,7 @@ class CVReady extends React.Component {
             name="certificate"
             q={1}
           />
+          <div className="blue-line"></div>
         </div>
       </div>
     );
@@ -83,8 +87,8 @@ class H3Title extends React.Component {
 
 class Photo extends React.Component {
   render() {
-    const img = <img alt="myPhoto" height="100px" src={this.props.url}></img>;
-
+    const url = this.props.url ? this.props.url : Photo_placeholder;
+    const img = <img alt="myPhoto" src={url}></img>;
     return <div className="photo">{img}</div>;
   }
 }
@@ -119,7 +123,7 @@ class LineInfo extends React.Component {
   createArrayOfP() {
     const pArray = [];
     for (let key in this.props.infoObj) {
-      pArray.push(<p key={nanoid(2)}>{this.props.infoObj[key]}</p>);
+      pArray.push(<p key={nanoid(3)}>{this.props.infoObj[key]}</p>);
     }
     return pArray;
   }
@@ -147,7 +151,11 @@ class LineInfo extends React.Component {
   }
 
   render() {
-    return <div className="line-info">{this.createLine()}</div>;
+    return (
+      <div className={'line-info ' + this.props.clName}>
+        {this.createLine()}
+      </div>
+    );
   }
 }
 
@@ -228,7 +236,7 @@ class SkillsInfo extends React.Component {
   render() {
     const titleContent = this.props.titleContent;
     return (
-      <section>
+      <section className="highlights">
         <H2Title title={titleContent.skills} />
         <hr></hr>
         <ListInfo
@@ -245,7 +253,7 @@ class CertificationsInfo extends React.Component {
   render() {
     const titleContent = this.props.titleContent;
     return (
-      <section>
+      <section className="highlights">
         <H2Title title={titleContent.certifications} />
         <hr></hr>
         <ListInfo
@@ -291,9 +299,14 @@ class ExperienceSubsection extends React.Component {
       <div className="subsection">
         <LineInfo
           infoObj={{ position, dateFrom, dateTo }}
-          separators={{ 0: ':', 1: `${separatorContent.to}` }}
+          separators={{ 0: ':', 1: ` ${separatorContent.to} ` }}
+          clName="position"
         />
-        <LineInfo infoObj={{ company, city }} separators={{ 0: ',' }} />
+        <LineInfo
+          infoObj={{ company, city }}
+          separators={{ 0: ',' }}
+          clName="company"
+        />
         <ListInfo listedInfo={duties} q={1} />
         <ListInfo listedInfo={achievements} q={1} />
       </div>
@@ -334,9 +347,14 @@ class EducationSubsection extends React.Component {
       <div className="subsection">
         <LineInfo
           infoObj={{ degree, subject, dateFrom, dateTo }}
-          separators={{ 0: ':', 1: ' -', 2: `${separatorContent.to}` }}
+          separators={{ 0: ':', 1: ' -', 2: ` ${separatorContent.to}` }}
+          clName="degree"
         />
-        <LineInfo infoObj={{ university, city }} separators={{ 0: ',' }} />
+        <LineInfo
+          infoObj={{ university, city }}
+          separators={{ 0: ',' }}
+          clName="university"
+        />
       </div>
     );
   }
