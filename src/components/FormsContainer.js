@@ -65,6 +65,7 @@ class FormsContainer extends React.Component {
                 <ExperienceInfoForm
                   onFormChange={this.props.updateInfoInArray}
                   placeholderContent={placeholderContent}
+                  infoContent={infoContent}
                   index={index}
                   key={index}
                   defaultValues={this.props.info.experience[index]}

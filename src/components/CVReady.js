@@ -3,6 +3,15 @@ import '../styles/CVReady.css';
 import { nanoid } from 'nanoid';
 import Photo_placeholder from '../images/photo-placeholder.png';
 
+const convertDateStr = (dateStr) => {
+  const re = /(\d{4})-{1}(\d{2})-{1}\d{2}/;
+  if (!re.test(dateStr)) {
+    return dateStr;
+  }
+  const [, year, month] = re.exec(dateStr);
+  return month + '/' + year;
+};
+
 class CVReady extends React.Component {
   render() {
     const {
@@ -145,7 +154,7 @@ class LineInfo extends React.Component {
       // console.log(pArr[elem]);
       let newText =
         pArr[elem].props.children + this.props.separators[`${elem}`];
-      pArr[elem] = <p>{newText}</p>;
+      pArr[elem] = <p key={nanoid(3)}>{newText}</p>;
     });
     return pArr;
   }
@@ -298,7 +307,11 @@ class ExperienceSubsection extends React.Component {
     return (
       <div className="subsection">
         <LineInfo
-          infoObj={{ position, dateFrom, dateTo }}
+          infoObj={{
+            position,
+            dateFrom: convertDateStr(dateFrom),
+            dateTo: convertDateStr(dateTo),
+          }}
           separators={{ 0: ':', 1: ` ${separatorContent.to} ` }}
           clName="position"
         />
@@ -346,7 +359,12 @@ class EducationSubsection extends React.Component {
     return (
       <div className="subsection">
         <LineInfo
-          infoObj={{ degree, subject, dateFrom, dateTo }}
+          infoObj={{
+            degree,
+            subject,
+            dateFrom: convertDateStr(dateFrom),
+            dateTo: convertDateStr(dateTo),
+          }}
           separators={{ 0: ':', 1: ' -', 2: ` ${separatorContent.to}` }}
           clName="degree"
         />

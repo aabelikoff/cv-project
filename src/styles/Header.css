@@ -18,7 +18,6 @@ header {
     justify-content: center;
     height: 45%;
     width: 30%;
-    /* border: 1px dotted; */
 }
 
 .app-name {
@@ -35,7 +34,6 @@ header {
     height: 25%;
     width: 30%;
     text-align: center;
-    /* border: 1px dotted; */
 }
 
 .languages {

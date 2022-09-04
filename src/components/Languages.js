@@ -59,6 +59,8 @@ const Lang = {
     info: {
       chose_file: 'File is not chosen.',
       file_name: 'File name',
+      cur_job: 'Current job',
+      now: 'now',
     },
   },
   ru: {
@@ -121,6 +123,8 @@ const Lang = {
     info: {
       chose_file: 'Файл не выбран.',
       file_name: 'Файл',
+      cur_job: 'Текущее место работы',
+      now: 'сегодня',
     },
   },
   ua: {
@@ -183,6 +187,8 @@ const Lang = {
     info: {
       chose_file: 'Файл не обраний.',
       file_name: 'Файл',
+      cur_job: 'Поточне місце роботи',
+      now: 'сьогодні',
     },
   },
 };

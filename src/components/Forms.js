@@ -11,6 +11,7 @@ class Input extends React.Component {
         accept={this.props.accept}
         className={this.props.className}
         defaultValue={this.props.defaultValue}
+        disabled={this.props.disabled}
       ></input>
     );
   }
@@ -236,16 +237,30 @@ class EducationInfoForm extends React.Component {
 class ExperienceInfoForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      currentPlace: false,
+    };
     this.section = 'experience';
     this.handleOnChange = this.handleOnChange.bind(this);
     this.createTextAriaContent = this.createTextAriaContent.bind(this);
+    this.changeCurPlace = this.changeCurPlace.bind(this);
   }
 
   handleOnChange(e) {
-    e.preventDefault();
     const key = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+    if (e.target.type === 'checkbox') {
+      const checked = e.target.checked;
+      this.changeCurPlace(checked);
+      if (!checked) {
+        value = '';
+      }
+    }
     this.props.onFormChange(this.section, key, value, this.props.index);
+  }
+
+  changeCurPlace(val) {
+    this.setState({ currentPlace: val });
   }
 
   createTextAriaContent(array) {
@@ -259,6 +274,14 @@ class ExperienceInfoForm extends React.Component {
     return (
       <fieldset>
         <form onChange={this.handleOnChange}>
+          <div className="checkbox">
+            <Input
+              type="checkbox"
+              name="dateTo"
+              defaultValue={this.props.infoContent.now}
+            />
+            {this.props.infoContent.cur_job}
+          </div>
           <Input
             type="text"
             placeholder={plContent.company}
@@ -284,10 +307,13 @@ class ExperienceInfoForm extends React.Component {
             defaultValue={this.props.defaultValues['dateFrom']}
           />
           <Input
-            type="date"
+            type={this.state.currentPlace ? 'text' : 'date'}
             placeholder={plContent.dateTo}
             name="dateTo"
-            defaultValue={this.props.defaultValues['dateTo']}
+            defaultValue={
+              this.state.currentPlace ? '' : this.props.defaultValues['dateTo']
+            }
+            disabled={this.state.currentPlace ? 'disabled' : ''}
           />
           <textarea
             placeholder={plContent.duties}

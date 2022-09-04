@@ -6,12 +6,8 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    /* gap: 5px; */
-    /* border-bottom: 1px solid #1e3d59;
-    border-top: 1px solid #1e3d59; */
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 8px;
-    /* font-family: 'Montserrat', sans-serif; */
 }
 
 .blue-line, .empty-line{
@@ -28,7 +24,6 @@
 .introduction{
     box-sizing: border-box;
     width: 25%;
-    /* border: 1px solid; */
 }
 
 h1, h2 {
@@ -40,12 +35,10 @@ h1, h2 {
 h1{
     font-size: 2.2em;
     font-weight: 900;
-    /* margin:5px; */
     min-height: 80px;
 }
 
 h2 {
-    /* margin:5px; */
     font-weight: 800;
 }
 
@@ -61,7 +54,6 @@ hr {
 .basic-info{
     box-sizing: border-box;
     width: 75%;
-    /* border: 1px solid; */
 }
 
 .subsection {
@@ -108,7 +100,6 @@ img {
 .position p,
 .degree p:last-child,
 .degree p:first-child +p+p {
-    /* font-size: 0.9em; */
     font-style: italic;
     text-decoration: underline;
 }
@@ -131,7 +122,6 @@ img {
 
 .highlights .list-info ul {
     font-size: 1em;
-    /* font-style: italic; */
 }
 .highlights .list-info ul li{
     margin-bottom: 3px;
