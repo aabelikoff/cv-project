@@ -3,16 +3,16 @@ import '../styles/CVReady.css';
 import { nanoid } from 'nanoid';
 import Photo_placeholder from '../images/photo-placeholder.png';
 
-const convertDateStr = (dateStr) => {
-  const re = /(\d{4})-{1}(\d{2})-{1}\d{2}/;
-  if (!re.test(dateStr)) {
-    return dateStr;
-  }
-  const [, year, month] = re.exec(dateStr);
-  return month + '/' + year;
-};
-
 class CVReady extends React.Component {
+  convertDateStr(dateStr) {
+    const re = /(\d{4})-{1}(\d{2})-{1}\d{2}/;
+    if (!re.test(dateStr)) {
+      return dateStr;
+    }
+    const [, year, month] = re.exec(dateStr);
+    return month + '/' + year;
+  }
+
   render() {
     const {
       personalInfo,
@@ -63,11 +63,13 @@ class CVReady extends React.Component {
             experience={experience}
             titleContent={titleContent}
             separatorContent={separatorContent}
+            convertDateStr={this.convertDateStr.bind(this)}
           />
           <EducationInfo
             education={education}
             titleContent={titleContent}
             separatorContent={separatorContent}
+            convertDateStr={this.convertDateStr.bind(this)}
           />
           <CertificationsInfo
             sertifications={certifications}
@@ -285,6 +287,7 @@ class ExperienceInfo extends React.Component {
           infoObj={job}
           separatorContent={separatorContent}
           key={nanoid(2)}
+          convertDateStr={this.props.convertDateStr}
         />
       );
     });
@@ -309,8 +312,8 @@ class ExperienceSubsection extends React.Component {
         <LineInfo
           infoObj={{
             position,
-            dateFrom: convertDateStr(dateFrom),
-            dateTo: convertDateStr(dateTo),
+            dateFrom: this.props.convertDateStr(dateFrom),
+            dateTo: this.props.convertDateStr(dateTo),
           }}
           separators={{ 0: ':', 1: ` ${separatorContent.to} ` }}
           clName="position"
@@ -337,6 +340,7 @@ class EducationInfo extends React.Component {
           infoObj={edu}
           separatorContent={separatorContent}
           key={nanoid(2)}
+          convertDateStr={this.props.convertDateStr}
         />
       );
     });
@@ -362,8 +366,8 @@ class EducationSubsection extends React.Component {
           infoObj={{
             degree,
             subject,
-            dateFrom: convertDateStr(dateFrom),
-            dateTo: convertDateStr(dateTo),
+            dateFrom: this.props.convertDateStr(dateFrom),
+            dateTo: this.props.convertDateStr(dateTo),
           }}
           separators={{ 0: ':', 1: ' -', 2: ` ${separatorContent.to}` }}
           clName="degree"
