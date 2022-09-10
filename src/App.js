@@ -1,125 +1,97 @@
 import { FormsContainer } from './components/FormsContainer';
 import { CVReady } from './components/CVReady';
 import { Header } from './components/Header';
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import './styles/App.css';
-import ReactToPrint, { PrintContextConsumer } from 'react-to-print';
+import ReactToPrint from 'react-to-print';
 import { FunctionalButton, ModeButton } from './components/Buttons';
 import Lang from './components/Languages';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+function App() {
+  const [appMode, setAppMode] = useState('preview');
+  const [appLang, setAppLang] = useState('en');
+  const componentRef = useRef();
 
-    this.state = {
-      appMode: 'preview',
-      appLang: 'ua',
-      cv: {
-        personalInfo: {
-          firstName: '',
-          secondName: '',
-          address: '',
-          phone: '',
-          email: '',
-          myPhoto: '',
-          description: '',
-          fileName: '',
-        },
-        education: [],
-        experience: [],
-        skills: [],
-        languages: [],
-        certifications: [],
-      },
-    };
+  const [cv, setCv] = useState({
+    personalInfo: {
+      firstName: '',
+      secondName: '',
+      address: '',
+      phone: '',
+      email: '',
+      myPhoto: '',
+      description: '',
+      fileName: '',
+    },
+    education: [],
+    experience: [],
+    skills: [],
+    languages: [],
+    certifications: [],
+  });
 
-    this.splitStringToArray = this.splitStringToArray.bind(this);
-    this.splitStringToArrayObj = this.splitStringToArrayObj.bind(this);
-    this.changeAppMode = this.changeAppMode.bind(this);
-    this.changeLanguage = this.changeLanguage.bind(this);
-    this.loadInfo = this.loadInfo.bind(this);
-    this.saveInfo = this.saveInfo.bind(this);
-    this.updateInfo = this.updateInfo.bind(this);
-    this.updateInfoInArray = this.updateInfoInArray.bind(this);
-    this.updateInfoInTextarea = this.updateInfoInTextarea.bind(this);
-    this.addSubsection = this.addSubsection.bind(this);
-    this.removeSubsection = this.removeSubsection.bind(this);
-  }
-
-  loadInfo() {
-    let dataStr = localStorage.getItem(this.state.appLang);
+  const loadInfo = () => {
+    let dataStr = localStorage.getItem(appLang);
     if (!dataStr) {
       return;
     }
-    let newCV = JSON.parse(dataStr);
-    this.setState({ cv: newCV });
-  }
+    let newCv = JSON.parse(dataStr);
+    setCv(newCv);
+  };
 
-  saveInfo() {
-    let dataStr = JSON.stringify(this.state.cv);
-    let key = this.state.appLang;
+  const saveInfo = () => {
+    let dataStr = JSON.stringify(cv);
+    let key = appLang;
     localStorage.setItem(key, dataStr);
-  }
+  };
 
-  changeAppMode(value) {
-    this.setState({ appMode: value });
-  }
+  const splitStringToArray = (str) => {
+    const re = /[;\n]+/;
+    return str.split(re);
+  };
 
-  changeLanguage(value) {
-    this.setState({ appLang: value });
-  }
-
-  updateInfo(section, key, value) {
-    this.setState((state) => {
-      const newCv = state.cv;
-      const newSection = newCv[section];
-
-      if (newSection[key] instanceof Array) {
-        newSection[key] = this.splitStringToArray(value);
-      } else {
-        newSection[key] = value;
-      }
+  const splitStringToArrayObj = (str, key) => {
+    const arr = splitStringToArray(str);
+    return arr.map((elem) => {
       return {
-        cv: newCv,
+        [key]: elem,
       };
     });
-  }
+  };
 
-  updateInfoInArray(section, key, value, index) {
-    this.setState((state) => {
-      const newCv = state.cv;
-      const newSectionArray = newCv[section];
-
-      if (newSectionArray[index][key] instanceof Array) {
-        newSectionArray[index][key] = this.splitStringToArray(value);
-      } else {
-        newSectionArray[index][key] = value;
-      }
+  const updateInfo = (section, key, value) => {
+    setCv((prevCv) => {
       return {
-        cv: newCv,
+        ...prevCv,
+        [section]: { ...prevCv[section], [key]: value },
       };
     });
-  }
+  };
 
-  updateInfoInTextarea(section, key, value) {
-    if (value === '') {
-      this.setState((state) => {
-        const newCv = state.cv;
-        newCv[section] = [];
-        return { cv: newCv };
-      });
-      return;
-    }
-    this.setState((state) => {
-      const newCv = state.cv;
-      newCv[section] = this.splitStringToArrayObj(value, key);
+  const updateInfoInArray = (section, key, value, index) => {
+    setCv((prevCv) => {
+      cv[section][index][key] =
+        cv[section][index][key] instanceof Array
+          ? splitStringToArray(value)
+          : value;
+
       return {
-        cv: newCv,
+        ...prevCv,
+        [section]: cv[section],
       };
     });
-  }
+  };
 
-  addSubsection(section) {
+  const updateInfoInTextarea = (section, key, value) => {
+    setCv((prevCv) => {
+      return {
+        ...prevCv,
+        [section]: !value ? [] : splitStringToArrayObj(value, key),
+      };
+    });
+  };
+
+  const addSubsection = (section) => {
     let elem;
     switch (section) {
       case 'education':
@@ -152,105 +124,73 @@ class App extends React.Component {
       default:
         return;
     }
-
-    const newCv = this.state.cv;
-    const newSection = newCv[section].concat([elem]);
-    newCv[section] = newSection;
-    this.setState({ cv: newCv });
-  }
-
-  removeSubsection(section) {
-    const newCv = this.state.cv;
-    const newSubsection = newCv[section];
-    newSubsection.pop();
-    this.setState({
-      cv: newCv,
+    setCv((prevCv) => {
+      return { ...prevCv, [section]: cv[section].concat(elem) };
     });
-  }
+  };
 
-  splitStringToArray(str) {
-    const re = /[;\n]+/;
-    return str.split(re);
-  }
-
-  splitStringToArrayObj(str, key) {
-    const arr = this.splitStringToArray(str);
-    return arr.map((elem) => {
-      return {
-        [key]: elem,
-      };
+  const removeSubsection = (section) => {
+    setCv((prevCv) => {
+      return { ...prevCv, [section]: cv[section].slice(0, -1) };
     });
-  }
+  };
 
-  render() {
-    const content = Lang[this.state.appLang];
-    const buttonContent = content.button;
+  const content = Lang[appLang];
+  const buttonContent = content.button;
 
-    return (
-      <div className="App">
-        <Header
-          mode={this.state.appMode}
-          onChangeMode={this.changeAppMode}
-          onChangeLanguage={this.changeLanguage}
-          lang={this.state.appLang}
+  return (
+    <div className="App">
+      <Header
+        mode={appMode}
+        onChangeMode={setAppMode}
+        onChangeLanguage={setAppLang}
+        lang={appLang}
+      />
+
+      {appMode === 'input' && (
+        <FormsContainer
+          content={content}
+          mode={appMode}
+          lang={appLang}
+          info={cv}
+          updateInfo={updateInfo}
+          updateInfoInArray={updateInfoInArray}
+          updateInfoInTextarea={updateInfoInTextarea}
+          addSubsection={addSubsection}
+          removeSubsection={removeSubsection}
         />
+      )}
+      {appMode === 'preview' && (
+        <CVReady
+          info={cv}
+          mode={appMode}
+          content={content}
+          ref={componentRef}
+        />
+      )}
 
-        {this.state.appMode === 'input' && (
-          <FormsContainer
-            content={content}
-            mode={this.state.appMode}
-            lang={this.state.appLang}
-            info={this.state.cv}
-            updateInfo={this.updateInfo}
-            updateInfoInArray={this.updateInfoInArray}
-            updateInfoInTextarea={this.updateInfoInTextarea}
-            addSubsection={this.addSubsection}
-            removeSubsection={this.removeSubsection}
+      <div className="func-buttons">
+        <ModeButton
+          value={
+            appMode === 'input' ? buttonContent.preview : buttonContent.input
+          }
+          name={appMode === 'input' ? 'preview' : 'input'}
+          onButtonClick={setAppMode}
+        />
+        <FunctionalButton onButtonClick={loadInfo} value={buttonContent.load} />
+
+        <FunctionalButton onButtonClick={saveInfo} value={buttonContent.save} />
+        {appMode === 'preview' && (
+          <ReactToPrint
+            trigger={() => (
+              <button className="functional-btn">{buttonContent.print}</button>
+            )}
+            content={() => componentRef.current}
           />
         )}
-        {this.state.appMode === 'preview' && (
-          <CVReady
-            info={this.state.cv}
-            mode={this.state.appMode}
-            content={content}
-            ref={(el) => (this.componentRef = el)}
-          />
-        )}
-
-        <div className="func-buttons">
-          <ModeButton
-            value={
-              this.state.appMode === 'input'
-                ? buttonContent.preview
-                : buttonContent.input
-            }
-            name={this.state.appMode === 'input' ? 'preview' : 'input'}
-            onButtonClick={this.changeAppMode}
-          />
-          <FunctionalButton
-            onButtonClick={this.loadInfo}
-            value={buttonContent.load}
-          />
-
-          <FunctionalButton
-            onButtonClick={this.saveInfo}
-            value={buttonContent.save}
-          />
-          {this.state.appMode === 'preview' && (
-            <ReactToPrint content={() => this.componentRef}>
-              <PrintContextConsumer>
-                {({ handlePrint }) => (
-                  <button className="functional-btn" onClick={handlePrint}>
-                    {buttonContent.print}
-                  </button>
-                )}
-              </PrintContextConsumer>
-            </ReactToPrint>
-          )}
-        </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;

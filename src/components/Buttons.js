@@ -1,91 +1,68 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/Buttons.css';
 
-class SubSectionButton extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleOnClick = this.handleOnClick.bind(this);
-  }
-
-  handleOnClick(e) {
+function SubSectionButton(props) {
+  const handleOnClick = (e) => {
     e.preventDefault();
-    this.props.onButtonClick(this.props.section);
-  }
+    props.onButtonClick(props.section);
+  };
 
-  render() {
-    return (
-      <button className="subsection-btn" onClick={this.handleOnClick}>
-        {this.props.value}
-      </button>
-    );
-  }
+  return (
+    <button className="subsection-btn" onClick={handleOnClick}>
+      {props.value}
+    </button>
+  );
 }
 
-class ModeButton extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.handleOnClick = this.handleOnClick.bind(this);
-  }
-
-  handleOnClick(e) {
+function ModeButton(props) {
+  const handleOnClick = (e) => {
     e.preventDefault();
-    let name = this.props.name;
-    this.props.onButtonClick(name);
-  }
+    let name = props.name;
+    props.onButtonClick(name);
+  };
 
-  render() {
-    return (
-      <button className="mode-button" onClick={this.handleOnClick}>
-        {this.props.value}
-      </button>
-    );
-  }
+  return (
+    <button className="mode-button" onClick={handleOnClick}>
+      {props.value}
+    </button>
+  );
 }
 
-class FunctionalButton extends React.Component {
-  render() {
-    return (
-      <button
-        className="functional-btn"
-        onClick={(e) => {
-          e.preventDefault();
-          this.props.onButtonClick();
-        }}
-      >
-        {this.props.value}
-      </button>
-    );
-  }
+function FunctionalButton(props) {
+  return (
+    <button
+      className="functional-btn"
+      onClick={(e) => {
+        e.preventDefault();
+        props.onButtonClick();
+      }}
+    >
+      {props.value}
+    </button>
+  );
 }
 
-class ChangeLangButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleOnClick = this.handleOnClick.bind(this);
-  }
+function ChangeLangButton(props) {
+  const [properClass, setProperClass] = useState();
 
-  handleOnClick(e) {
-    e.preventDefault();
-    this.props.onButtonClick(e.target.name);
-  }
-
-  render() {
-    const properClass =
-      this.props.name === this.props.lang
+  useEffect(() => {
+    setProperClass(() => {
+      return props.name === props.lang
         ? 'change-lang yellow-color'
         : 'change-lang';
-    return (
-      <button
-        className={properClass}
-        name={this.props.name}
-        onClick={this.handleOnClick}
-      >
-        {this.props.value}
-      </button>
-    );
-  }
+    });
+  });
+
+  const handleOnClick = (e) => {
+    e.preventDefault();
+    props.onButtonClick(e.target.name);
+  };
+
+  return (
+    <button className={properClass} name={props.name} onClick={handleOnClick}>
+      {props.value}
+    </button>
+  );
 }
 
 export { SubSectionButton, ModeButton, FunctionalButton, ChangeLangButton };
