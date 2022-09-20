@@ -3,7 +3,7 @@ import '../styles/CVReady.css';
 import { nanoid } from 'nanoid';
 import Photo_placeholder from '../images/photo-placeholder.png';
 
-function CVReady(props) {
+const CVReady = React.forwardRef((props, ref) => {
   const convertDateStr = (dateStr) => {
     const re = /(\d{4})-{1}(\d{2})-{1}\d{2}/;
     if (!re.test(dateStr)) {
@@ -27,7 +27,7 @@ function CVReady(props) {
   const titleContent = props.content.title;
   const separatorContent = props.content.separator;
   return (
-    <div className="cv">
+    <div className="cv" {...props} ref={ref}>
       <div className="introduction">
         <div className="blue-line"></div>
         <h1>
@@ -73,7 +73,7 @@ function CVReady(props) {
       </div>
     </div>
   );
-}
+});
 
 function H2Title(props) {
   return <h2>{props.title}</h2>;

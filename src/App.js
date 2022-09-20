@@ -3,14 +3,17 @@ import { CVReady } from './components/CVReady';
 import { Header } from './components/Header';
 import React, { useState, useRef } from 'react';
 import './styles/App.css';
-import ReactToPrint from 'react-to-print';
 import { FunctionalButton, ModeButton } from './components/Buttons';
 import Lang from './components/Languages';
+import { useReactToPrint } from 'react-to-print';
 
 function App() {
   const [appMode, setAppMode] = useState('preview');
   const [appLang, setAppLang] = useState('en');
   const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
 
   const [cv, setCv] = useState({
     personalInfo: {
@@ -181,12 +184,9 @@ function App() {
 
         <FunctionalButton onButtonClick={saveInfo} value={buttonContent.save} />
         {appMode === 'preview' && (
-          <ReactToPrint
-            trigger={() => (
-              <button className="functional-btn">{buttonContent.print}</button>
-            )}
-            content={() => componentRef.current}
-          />
+          <button className="functional-btn" onClick={handlePrint}>
+            {buttonContent.print}
+          </button>
         )}
       </div>
     </div>
